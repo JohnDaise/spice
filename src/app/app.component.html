@@ -2,9 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <!-- <div *ngIf="selectedPage !== 'recipes'">Hello</div> -->
-      <app-recipes *ngIf="selectedPage === 'recipes'"></app-recipes>
-      <app-shopping-list *ngIf="selectedPage !== 'recipes'"></app-shopping-list>
+      <router-outlet> </router-outlet>
     </div>
   </div>
 </div>
