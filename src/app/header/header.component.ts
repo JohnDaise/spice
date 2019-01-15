@@ -30,4 +30,9 @@ export class HeaderComponent {
     this.dataStorageService.getData();
   }
 
+
+  onLogout(){
+    this.authService.logout();
+  }
+
 }
