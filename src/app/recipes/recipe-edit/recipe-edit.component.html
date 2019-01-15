@@ -1,15 +1,17 @@
 <div class="row">
   <div class="col-xs-12">
     <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+
       <div class="row">
         <div class="col-xs-12">
-          <button 
+          <button  
             type="submit"
             class="btn btn-primary"
             [disabled]="!recipeForm.valid">Save</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
@@ -22,6 +24,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
@@ -35,6 +38,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
@@ -42,6 +46,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
@@ -54,6 +59,7 @@
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-12" formArrayName="ingredients">
           <div 
@@ -93,6 +99,7 @@
           </div>
         </div>
       </div>
+      
     </form>
   </div>
 </div>
