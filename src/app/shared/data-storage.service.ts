@@ -5,18 +5,23 @@ import 'rxjs/RX';
 
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class DataStorageService {
     constructor(private http: Http,
-                private recipeService: RecipeService){}
+                private recipeService: RecipeService,
+                private authService: AuthService){}
 
     storeData(){
-        return this.http.put('https://ng-spice.firebaseio.com/recipes.json', this.recipeService.getRecipes());//use puts bc it will override the database on backend
+        const token = this.authService.getToken();
+
+        return this.http.put('https://ng-spice.firebaseio.com/recipes.json?auth=' + token, this.recipeService.getRecipes());//use puts bc it will override the database on backend
     }
 
     getData(){
-        return this.http.get('https://ng-spice.firebaseio.com/recipes.json')
+        const token = this.authService.getToken();
+         this.http.get('https://ng-spice.firebaseio.com/recipes.json?auth=' + token)
             .map(
                 (response: Response) => {
                   const recipes: Recipe[] = response.json();  
