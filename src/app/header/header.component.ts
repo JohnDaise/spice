@@ -23,4 +23,8 @@ export class HeaderComponent {
       );
   }
 
+  onGetData(){
+    this.dataStorageService.getData();
+  }
+
 }
