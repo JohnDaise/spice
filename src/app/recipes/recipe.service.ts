@@ -60,4 +60,13 @@ export class RecipeService {
           this.recipesChanged.next(this.recipes.slice());
       }
 
+
+      saveData(){
+
+      }
+
+      fetchData(){
+          
+      }
+
 }
