@@ -17,6 +17,10 @@ export class HeaderComponent {
   // ngOnInit() {
   // }
 
+  isAuthenticated(){
+    return this.authService.isAuthenticated();
+  }
+
   onStoreData(){
     this.dataStorageService.storeData()
       .subscribe(
