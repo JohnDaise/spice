@@ -6,7 +6,7 @@ import 'rxjs/RX';
 import { RecipeService } from '../recipes/recipe.service';
 import { Recipe } from '../recipes/recipe.model';
 import { AuthService } from '../auth/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class DataStorageService {
@@ -15,16 +15,32 @@ export class DataStorageService {
                 private authService: AuthService){}
 
     storeData(){
-        const token = this.authService.getToken();
+        // const headers = new HttpHeaders().set('Authorization', 'Bearer tokenadfdsf');
+        // //if using JWT, could use this approach to append headers 
 
-        return this.httpClient.put('https://ng-spice.firebaseio.com/recipes.json?auth=' + token, 
-        this.recipeService.getRecipes());//use puts bc it will override the database on backend
+        // return this.httpClient.put('https://ng-spice.firebaseio.com/recipes.json', 
+        // this.recipeService.getRecipes(), {
+        //     observe: 'body',
+        //     params: new HttpParams().set('auth', token)
+        //     // headers: headers
+        //     // headers: new HttpHeaders().set('Authorization', 'Bearer tokenadfdsf')
+        // });//use puts bc it will override the database on backend
+
+        const req = new HttpRequest('PUT', 'https://ng-spice.firebaseio.com/recipes.json', 
+        this.recipeService.getRecipes(), {reportProgress: true});
+        // this.recipeService.getRecipes(), {reportProgress: true, params: new HttpParams().set('auth', token)});
+       return this.httpClient.request(req);
     } //this section remais the same just use 'httpClient' instead of 'http'
+    
 
     getData(){
-        const token = this.authService.getToken();
+        // const token = this.authService.getToken();
         //  this.http.get('https://ng-spice.firebaseio.com/recipes.json?auth=' + token)
-         this.httpClient.get<Recipe[]>('https://ng-spice.firebaseio.com/recipes.json?auth=' + token)
+        //  this.httpClient.get<Recipe[]>('https://ng-spice.firebaseio.com/recipes.json?auth=' + token)
+         this.httpClient.get<Recipe[]>('https://ng-spice.firebaseio.com/recipes.json', {
+             observe: 'body',
+             responseType: 'json'  //'test' ( json most common response) or 'arraybuffer'
+         })
             .map(
                 // (response: Response) => {
                     //   const recipes: Recipe[] = response.json();  
@@ -36,6 +52,7 @@ export class DataStorageService {
                       }
                   }
                   return recipes;
+                //   return [];
                 }
             )
             .subscribe(
