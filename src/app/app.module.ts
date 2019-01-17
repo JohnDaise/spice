@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 // import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { reducers } from './store/app.reducers'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing-module';
@@ -11,7 +12,6 @@ import { AuthModule } from './auth/auth.module';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 import { CoreModule } from './core/core.module';
 import { StoreModule } from '@ngrx/store';
-import { shoppingListReducer } from './store/shopping-list.reducers';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { shoppingListReducer } from './store/shopping-list.reducers';
     AuthModule,
     AuthRoutingModule,
     CoreModule,
-    StoreModule.forRoot({shoppingList: shoppingListReducer})
+    StoreModule.forRoot(reducers)
   ],
   bootstrap: [AppComponent]
 })
