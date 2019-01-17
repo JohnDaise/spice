@@ -10,6 +10,8 @@ import { RecipeEmptyComponent } from './recipe-empty/recipe-empty.component';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { recipeReducer } from './store/recipe.reducers';
 
 @NgModule({
     declarations:[
@@ -21,10 +23,12 @@ import { SharedModule } from '../shared/shared.module';
         RecipeItemComponent
     ],
     imports: [
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         RecipesRoutingModule,
-        SharedModule
+        SharedModule,
+        StoreModule.forFeature('recipes', recipeReducer)
       ],
 
     
