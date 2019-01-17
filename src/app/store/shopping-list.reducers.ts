@@ -18,7 +18,7 @@ const initialState: State = {
         new Ingredient('Tomatoes', 10)
     ],
     editedIngredient: null,
-    editedIngredientIndex: null
+    editedIngredientIndex: -1
 };
 
 
@@ -35,13 +35,13 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
                 ingredients: [...state.ingredients, ...action.payload]
             };
         case ShoppingListActions.UPDATE_INGREDIENT:
-            const ingredient = state.ingredients[action.payload.index];
+            const ingredient = state.ingredients[state.editedIngredientIndex];
             const updatedIngredient = {
                 ...ingredient,
                 ...action.payload.ingredient
             }; // the above section simply updates single ingredient in a way that immutable
             let ingredients = [...state.ingredients];
-            ingredients[action.payload.index] = updatedIngredient; //this adds the updated ingredient to the ingredients array
+            ingredients[state.editedIngredientIndex] = updatedIngredient; //this adds the updated ingredient to the ingredients array
             return {
                 ...state,
                 ingredients: ingredients
@@ -50,7 +50,15 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
             const oldIngredients = [...state.ingredients]; 
             return {
                 ...state,
-                ingredients: state.ingredients.splice(action.payload, 1)
+                ingredients: state.ingredients.splice(state.editedIngredientIndex, 1)
+            };
+        case ShoppingListActions.START_EDIT:
+            const editedIngredient = {...state.ingredients[action.payload]};
+
+        return {
+                ...state,
+                editedIngredient: editedIngredient,
+                editedIngredientIndex: action.payload
             };
         default:
             return state;
