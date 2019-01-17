@@ -1,7 +1,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import  'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';
 
 
 import { Store } from '@ngrx/store';
