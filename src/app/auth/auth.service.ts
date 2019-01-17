@@ -30,7 +30,7 @@ export class AuthService {
             )
     }
 
-    
+
     signinUser(email: string, password: string){
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(
@@ -51,6 +51,7 @@ export class AuthService {
     }
 
     logout(){
+        console.log('hello again');
         firebase.auth().signOut();
         this.store.dispatch(new AuthActions.Logout());
     }
