@@ -2,13 +2,13 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Recipe } from '../recipe.model';
 
 import * as RecipeActions from '../store/recipe.actions';
-// import 'rxjs/add/operator/switchMap';
-import { map, switchMap } from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/withLatestFrom';
+import { switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { withLatestFrom } from 'rxjs-compat/operator/withLatestFrom';
 import * as fromRecipe from '../store/recipe.reducers';
 
 
