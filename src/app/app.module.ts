@@ -23,7 +23,7 @@ import { environment } from './../environments/environment';
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'spice-app'}),
     // HttpModule,
     HttpClientModule,
     AppRoutingModule,
