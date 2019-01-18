@@ -2,9 +2,8 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Recipe } from '../recipe.model';
 
 import * as RecipeActions from '../store/recipe.actions';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/withLatestFrom';
-import { switchMap } from 'rxjs/operators';
+import {switchMap, withLatestFrom, map} from 'rxjs/operators';
+
 import { Store } from '@ngrx/store';
 
 import { HttpClient, HttpRequest } from '@angular/common/http';
@@ -23,8 +22,7 @@ export class RecipeEffects {
                 observe: 'body',
                 responseType: 'json'  
             })              
-        }))
-        .map(
+        }), map(
             (recipes) => {
                 console.log(recipes);
               for (let recipe of recipes){
@@ -38,17 +36,19 @@ export class RecipeEffects {
                 payload: recipes
               };
             }
-        );
+        ));
+ 
 
     @Effect({dispatch: false})
     recipeStore = this.actions$.pipe(
         ofType(RecipeActions.STORE_RECIPES))
-        .withLatestFrom(this.store.select('recipes'))
-        .switchMap(([action, state])=>{
+        .pipe(withLatestFrom(this.store.select('recipes')), 
+            switchMap(([action, state])=>{
             const req = new HttpRequest('PUT', 'https://ng-spice.firebaseio.com/recipes.json', 
             state.recipes, {reportProgress: true});
                  return this.httpClient.request(req);
-        });
+        }));
+        
     
       
 

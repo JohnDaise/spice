@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../../store/shopping-list.actions'
 // import * as fromApp from '../../store/app.reducers'
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/take';
+import { take } from 'rxjs/operators';
 import * as fromRecipe from '../store/recipe.reducers';
 import * as RecipeActions from '../store/recipe.actions';
 
@@ -37,7 +37,7 @@ export class RecipeDetailComponent implements OnInit {
   onAddToSL(){
     console.log('added');
     this.store.select('recipes')
-    .take(1)
+    .pipe(take(1))
     .subscribe((recipeState: fromRecipe.State) => {
       this.store.dispatch(new ShoppingListActions.AddIngredients(
         recipeState.recipes[this.id].ingredients));

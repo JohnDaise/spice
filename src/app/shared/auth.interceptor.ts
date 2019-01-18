@@ -1,7 +1,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/switchMap';
+import { take, switchMap } from 'rxjs/operators';
 
 
 import { Store } from '@ngrx/store';
@@ -18,10 +18,10 @@ export class AuthInterceptor implements HttpInterceptor {
         console.log('Intercepted', req);
         // const copiedReq = req.clone({headers: req.headers.append('',)});
         return  this.store.select('auth')
-        .take(1)
-        .switchMap((authState: fromAuth.State) => {         
+        .pipe(take(1),
+        switchMap((authState: fromAuth.State) => {         
             const copiedReq = req.clone({params: req.params.set('auth', authState.token)});
             return next.handle(copiedReq); //can use this before a request has been sent. Here am adding a token to request         
-         })
+         }));
     }
 }
